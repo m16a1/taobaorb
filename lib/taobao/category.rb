@@ -5,6 +5,10 @@ class Taobao::Category
 		@id = category_id.to_i
 		fields = [:cid, :parent_cid, :name, :is_parent].join ','
 		result = Taobao.api_request(method: 'taobao.itemcats.get', fields: fields, cid: @id)
-		@name = result[:itemcats_get_response][:item_cats][:item_cat].first[:name]
+		begin
+			@name = result[:itemcats_get_response][:item_cats][:item_cat].first[:name]
+		rescue NoMethodError
+			raise Taobao::ApiError, 'Incorrect category ID'
+		end
 	end
 end
