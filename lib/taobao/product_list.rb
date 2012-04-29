@@ -15,6 +15,37 @@ class Taobao::ProductList
     @total_count
   end
   
+  def page(num)
+    @products = nil
+    @opts[:page_no] = num
+    self
+  end
+  
+  def per_page(num)
+    @products = nil
+    @opts[:page_size] = num
+    self
+  end
+  
+  def order_by(field)
+    @products = nil
+    @opts[:order_by] = field
+    self
+  end
+  
+  def method_missing(method_name, *args, &block)
+    m = /^order_by_(?<field>.+)$/.match(method_name)
+    if m
+      order_by m[:field]
+    else
+      super
+    end
+  end
+  
+  def each(&block)
+    products.each{|item| block.call(item)}
+  end
+  
   private
   def products
     return @products if @products
