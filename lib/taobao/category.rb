@@ -27,6 +27,10 @@ class Taobao::Category
     end
   end
   
+  def products
+    Taobao::ProductList.new(cid: @id)
+  end
+  
   private
   def category_request(optional_params)
     fields = [:cid, :parent_cid, :name, :is_parent].join ','

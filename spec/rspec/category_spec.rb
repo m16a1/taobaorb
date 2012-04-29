@@ -2,10 +2,6 @@
 require 'spec_helper'
 
 describe Taobao::Category do
-  before(:each) do
-    Taobao.public_key  = 'test'
-    Taobao.private_key = 'test'
-  end
 
   it 'should have name' do
     category = Taobao::Category.new(28)
@@ -53,7 +49,7 @@ describe Taobao::Category do
   end
   
   describe 'properties' do
-    it 'should returns empty array for top level category' do
+    it 'should return empty array for top level category' do
       category = Taobao::Category.new(0)
       fixture = 'top_category_properties.json'.json_fixture
       args = {
@@ -65,7 +61,7 @@ describe Taobao::Category do
       
       category.properties.should == []
     end
-    it 'should returns a few properties' do
+    it 'should return a few properties' do
       category = Taobao::Category.new(50005718)
       
       fixture = 'category_properties.json'.json_fixture
@@ -77,6 +73,13 @@ describe Taobao::Category do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       
       category.properties.size.should be > 0
+    end
+  end
+  
+  describe 'products' do
+    it 'should return ProductList object' do
+      category = Taobao::Category.new(28)
+      category.products.class.should == Taobao::ProductList
     end
   end
 end   
