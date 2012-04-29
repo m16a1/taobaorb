@@ -1,8 +1,12 @@
 class Taobao::Category
-  attr_reader :id, :name
+  attr_reader :id
   
   def initialize(category_id)
     @id = category_id.to_i
+  end
+  
+  def name
+    return @name if @name
     @name = category_request(cids: @id).first[:name]
   end
   

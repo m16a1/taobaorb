@@ -5,6 +5,11 @@ describe Taobao::Category do
   before(:each) do
     Taobao.public_key  = 'test'
     Taobao.private_key = 'test'
+  end
+
+  it 'should have name' do
+    category = Taobao::Category.new(28)
+    category.id.should  == 28
     
     fixture = 'category.json'.json_fixture
     args = {
@@ -13,11 +18,7 @@ describe Taobao::Category do
       cids: 28
     }
     Taobao.stub(:api_request).with(args).and_return(fixture)
-  end
-
-  it 'should have name' do
-    category = Taobao::Category.new(28)
-    category.id.should  == 28
+    
     category.name.should == 'ZIPPO/瑞士军刀/眼镜'
   end
 
@@ -30,8 +31,8 @@ describe Taobao::Category do
         cids: -20
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
-
-      lambda {Taobao::Category.new(-20)}
+      category = Taobao::Category.new(-20)
+      lambda {category.name}
         .should raise_error Taobao::ApiError, 'Incorrect category ID'
     end
   end
@@ -50,4 +51,11 @@ describe Taobao::Category do
       category.subcategories.size.should be > 0
     end
   end
+  
+#  describe 'properties' do
+#    it 'shold returns a few properties' do
+#      category = Taobao::Category.new(50005718)
+#      category.properties.size.should be > 0
+#    end
+#  end
 end   
