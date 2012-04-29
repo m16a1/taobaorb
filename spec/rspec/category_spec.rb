@@ -39,8 +39,8 @@ describe Taobao::Category do
 
   describe 'subcategories' do
     it 'top level category should contains a few subcategories' do
-
       category = Taobao::Category.new(28)
+      
       fixture = 'subcategories.json'.json_fixture
       args = {
         method: 'taobao.itemcats.get',
@@ -52,10 +52,31 @@ describe Taobao::Category do
     end
   end
   
-#  describe 'properties' do
-#    it 'shold returns a few properties' do
-#      category = Taobao::Category.new(50005718)
-#      category.properties.size.should be > 0
-#    end
-#  end
+  describe 'properties' do
+    it 'should returns empty array for top level category' do
+      category = Taobao::Category.new(0)
+      fixture = 'top_category_properties.json'.json_fixture
+      args = {
+        method: 'taobao.itemprops.get',
+        fields: 'pid,name,must,multi,prop_values',
+        cid: 0
+      }
+      Taobao.stub(:api_request).with(args).and_return(fixture)
+      
+      category.properties.should == []
+    end
+    it 'should returns a few properties' do
+      category = Taobao::Category.new(50005718)
+      
+      fixture = 'category_properties.json'.json_fixture
+      args = {
+        method: 'taobao.itemprops.get',
+        fields: 'pid,name,must,multi,prop_values',
+        cid: 50005718
+      }
+      Taobao.stub(:api_request).with(args).and_return(fixture)
+      
+      category.properties.size.should be > 0
+    end
+  end
 end   
