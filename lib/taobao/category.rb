@@ -11,4 +11,8 @@ class Taobao::Category
 			raise Taobao::ApiError, 'Incorrect category ID'
 		end
 	end
+	
+	def subcategories
+	end
+	
 end
