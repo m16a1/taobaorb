@@ -30,7 +30,8 @@ module Taobao
     values_str = options.sort.inject('') do |str, item|
       str + item.first.to_s + item.last.to_s
     end
-    Digest::MD5.hexdigest(@private_key + values_str + @private_key).upcase
+    str = @private_key.to_s + values_str + @private_key.to_s
+    Digest::MD5.hexdigest(str).upcase
   end
   
 end

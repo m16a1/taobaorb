@@ -13,4 +13,14 @@ describe Taobao do
       Taobao.method_defined?(:private_key).should == false
     end
   end
+  describe 'api_request' do
+    it 'should always return a Hash object' do
+      Response = Struct.new('Responce', :body)
+      fixture = Response.new(open('./spec/fixtures/category.json').read)
+      Net::HTTP.stub(:post_form).and_return(fixture)
+      result = Taobao.api_request(method: 'taobao.itemcats.get',
+        fields: 'cid,parent_cid,name,is_parent', cids: 0)
+      result.class.should == Hash
+    end
+  end
 end

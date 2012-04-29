@@ -12,7 +12,7 @@ describe Taobao::Category do
       fields: 'cid,parent_cid,name,is_parent',
       cids: 28
     }
-    Taobao.expects(:api_request).with(args).returns(fixture)
+    Taobao.stub(:api_request).with(args).and_return(fixture)
   end
 
   it 'should have name' do
@@ -29,7 +29,7 @@ describe Taobao::Category do
         fields: 'cid,parent_cid,name,is_parent',
         cids: -20
       }
-      Taobao.expects(:api_request).with(args).returns(fixture)
+      Taobao.stub(:api_request).with(args).and_return(fixture)
 
       lambda {Taobao::Category.new(-20)}
         .should raise_error Taobao::ApiError, 'Incorrect category ID'
@@ -46,7 +46,7 @@ describe Taobao::Category do
         fields: 'cid,parent_cid,name,is_parent',
         parent_cid: 28
       }
-      Taobao.expects(:api_request).with(args).returns(fixture)
+      Taobao.stub(:api_request).with(args).and_return(fixture)
       category.subcategories.size.should be > 0
     end
   end

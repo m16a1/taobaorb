@@ -1,6 +1,5 @@
 require 'rspec'
 require 'simplecov'
-require 'mocha'
 
 SimpleCov.start do
   add_group 'Libraries', 'lib'
