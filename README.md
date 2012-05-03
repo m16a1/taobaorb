@@ -1,4 +1,4 @@
 taobao-rb
 =========
 
-Wrapper for the Taobao API
+Ruby wrapper for the Taobao API
