@@ -1,4 +1,4 @@
-#taobao-rb
+#taobaorb
 
 Ruby wrapper for the Taobao API
 
