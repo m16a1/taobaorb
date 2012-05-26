@@ -15,8 +15,11 @@ puts category.products.size
 puts category.products.total_count
 
 category.products.page(10).per_page(20).order_by_price.each do |product|
-  puts product[:title]
-  puts product[:price]
-  puts product[:pic_url]
+  puts product.title
+  puts product.price
+  puts product.pic_url
+
+  puts product.desc
+  puts product.has_discount
 end
 ```
