@@ -23,12 +23,12 @@ describe Taobao::ProductList do
     end
     it 'items could be iterated' do
       pl.each do |item|
-        item[:cid].should be > 0
-        item[:nick].size.should be > 0
-        item[:num_iid].should be > 0
-        item[:pic_url].should match /^http:\/\//
-        item[:price].size.should be > 0
-        item[:title].size.should be > 0
+        item.cid.should be > 0
+        item.nick.size.should be > 0
+        item.num_iid.should be > 0
+        item.pic_url.should match /^http:\/\//
+        item.price.size.should be > 0
+        item.title.size.should be > 0
       end
     end
   end

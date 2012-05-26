@@ -55,7 +55,10 @@ class Taobao::ProductList
     result = Taobao.api_request(params.merge(@opts))
     begin
       @total_count = result[:items_get_response][:total_results]
-      @products = result[:items_get_response][:items][:item]
+      @products = []
+      result[:items_get_response][:items][:item].each do |product|
+        @products << Taobao::Product.new(product)
+      end
     rescue NoMethodError
       @total_count = 0
       @products = []
