@@ -6,7 +6,7 @@ SimpleCov.start do
   add_group 'Specs', 'spec'
 end
 
-require 'taobao'
+require 'taobaorb'
 
 class String
   def json_fixture

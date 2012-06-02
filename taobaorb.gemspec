@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'taobaorb'
-  s.version     = '0.8.1'
-  s.date        = '2012-05-26'
+  s.version     = '0.8.2'
+  s.date        = '2012-06-02'
   s.summary     = 'Ruby wrapper for the Taobao API'
   s.description = 'Ruby wrapper for the Taobao API'
   s.authors     = ['m16a1']
