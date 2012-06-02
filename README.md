@@ -2,6 +2,12 @@
 
 Ruby wrapper for the Taobao API
 
+## Getting started
+At the command prompt, install taobaorb:
+```bash
+gem install taobaorb
+```
+
 ##Examples
 Setting public and private keys before any API calls:
 ```ruby
