@@ -5,6 +5,7 @@ Ruby wrapper for the Taobao API
 ##Examples
 Setting public and private keys before any API calls:
 ```ruby
+require 'taobaorb'
 Taobao.public_key = your_public_key
 Taobao.private_key = your_private_key
 ```
