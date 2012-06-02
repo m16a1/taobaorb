@@ -30,3 +30,8 @@ category.products.page(10).per_page(20).order_by_price.each do |product|
   puts product.has_discount
 end
 ```
+
+Searching for products:
+```ruby
+product_list = Taobao::search('iPhone').page(1).per_page(15).order_by_title
+```
