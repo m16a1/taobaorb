@@ -17,7 +17,7 @@ module Taobao
     options[:app_key]    = @public_key
     options[:format]     = :json
     options[:v]          = API_VERSION
-    options[:timestamp]  = Date.new.strftime('%Y-%m-%d %H:%M:%S')
+    options[:timestamp]  = Time.now.strftime('%Y-%m-%d %H:%M:%S')
     options[:sign_method] = :md5
     options[:sign] = self.create_signature(options)
     
