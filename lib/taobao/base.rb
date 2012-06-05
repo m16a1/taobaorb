@@ -26,6 +26,7 @@ module Taobao
     JSON.parse response.body, {symbolize_names: true}
   end
   
+  private
   def self.create_signature(options)
     values_str = options.sort.inject('') do |str, item|
       str + item.first.to_s + item.last.to_s
