@@ -63,6 +63,7 @@ class Taobao::ProductList
       @total_count = 0
       @products = []
     end
+    @products
   end
   
 end
