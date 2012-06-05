@@ -15,11 +15,11 @@ class Taobao::Product
   
   def initialize(product_properties)
     @all_properties_fetched = false
-    
+
     if Hash === product_properties
       hash_to_object(product_properties)
     else
-      @id = product_properties.to_s
+      @num_iid = product_properties.to_s
       fetch_full_data
     end
   end
@@ -42,7 +42,7 @@ class Taobao::Product
   
   def fetch_full_data
     fields = (BASIC_PROPERTIES + OTHER_PROPERTIES).join ','
-    params = {method: 'taobao.item.get', fields: fields, num_iid: @id}
+    params = {method: 'taobao.item.get', fields: fields, num_iid: id}
     result = Taobao.api_request(params)
     hash_to_object(result[:item_get_response][:item])
     @all_properties_fetched = true
