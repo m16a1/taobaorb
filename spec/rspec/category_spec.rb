@@ -51,28 +51,7 @@ describe Taobao::Category do
   describe 'properties' do
     it 'should return empty array for top level category' do
       category = Taobao::Category.new(0)
-      fixture = 'top_category_properties.json'.json_fixture
-      args = {
-        method: 'taobao.itemprops.get',
-        fields: 'pid,name,must,multi,prop_values',
-        cid: 0
-      }
-      Taobao.stub(:api_request).with(args).and_return(fixture)
-      
-      category.properties.should == []
-    end
-    it 'should return a few properties' do
-      category = Taobao::Category.new(50005718)
-      
-      fixture = 'category_properties.json'.json_fixture
-      args = {
-        method: 'taobao.itemprops.get',
-        fields: 'pid,name,must,multi,prop_values',
-        cid: 50005718
-      }
-      Taobao.stub(:api_request).with(args).and_return(fixture)
-      
-      category.properties.size.should be > 0
+     category.properties.class.should == Taobao::PropertyList
     end
   end
   
