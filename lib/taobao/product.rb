@@ -25,12 +25,12 @@ class Taobao::Product
   end
   
   def method_missing(method_name, *args, &block)
-      unless OTHER_PROPERTIES.include? method_name
-        super
-      else
-        fetch_full_data unless @all_properties_fetched
-        self.instance_variable_get "@#{method_name}"
-      end
+    unless OTHER_PROPERTIES.include? method_name
+      super
+    else
+      fetch_full_data unless @all_properties_fetched
+      self.instance_variable_get "@#{method_name}"
+    end
   end
   
   private
