@@ -53,18 +53,18 @@ class Taobao::ProductList
   
   def memoize_api_result
     return if @products
-    responce = items_get_request
-    @total_count = retrieve_total_count(responce)
-    @products = retrieve_products(responce)
+    response = items_get_request
+    @total_count = retrieve_total_count(response)
+    @products = retrieve_products(response)
   end
   
-  def retrieve_total_count(responce)
-    responce[:items_get_response][:total_results].to_i
+  def retrieve_total_count(response)
+    response[:items_get_response][:total_results].to_i
   end
   
-  def retrieve_products(responce)
+  def retrieve_products(response)
     begin
-      products = responce[:items_get_response][:items][:item]
+      products = response[:items_get_response][:items][:item]
       get_products_as_objects(products)
     rescue NoMethodError
       []

@@ -14,16 +14,9 @@ module Taobao
   end
   
   def self.api_request(options)
-    options[:app_key]    = @public_key
-    options[:format]     = :json
-    options[:v]          = API_VERSION
-    options[:timestamp]  = Time.now.strftime('%Y-%m-%d %H:%M:%S')
-    options[:sign_method] = :md5
-    options[:sign] = self.create_signature(options)
-    
     uri = URI(PRODUCTION_URL)
-    response = Net::HTTP.post_form(uri, options)
-    JSON.parse response.body, {symbolize_names: true}
+    response = Net::HTTP.post_form uri, self.append_required_options(options)
+    parse_to_hash response
   end
   
   private
@@ -35,4 +28,21 @@ module Taobao
     Digest::MD5.hexdigest(str).upcase
   end
   
+  def self.append_required_options(options)
+    options.merge({
+      app_key:     @public_key,
+      format:      :json,
+      v:           API_VERSION,
+      timestamp:   Time.now.strftime('%Y-%m-%d %H:%M:%S'),
+      sign_method: :md5
+    })
+    options[:sign] = self.create_signature(options)
+    options
+  end
+  
+  def self.parse_to_hash(response)
+    result = JSON.parse response.body, {symbolize_names: true}
+    raise Taobao::ApiError.new(result) if result.key? :error_response
+    result
+  end
 end
