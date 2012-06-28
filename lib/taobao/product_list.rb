@@ -11,7 +11,7 @@ class Taobao::ProductList
   end
   
   def total_count
-    products unless @total_count
+    memoize_api_result
     @total_count
   end
   
@@ -34,8 +34,7 @@ class Taobao::ProductList
   end
   
   def method_missing(method_name, *args, &block)
-    m = /^order_by_(?<field>.+)$/.match(method_name)
-    if m
+    if (m = /^order_by_(?<field>.+)$/.match method_name)
       order_by m[:field]
     else
       super
@@ -48,22 +47,40 @@ class Taobao::ProductList
   
   private
   def products
-    return @products if @products
-    fields = [:num_iid, :title, :nick, :pic_url, :cid, :price, :type,
-      :delist_time, :post_fee, :score, :volume].join ','
-    params = {method: 'taobao.items.get', fields: fields}
-    result = Taobao.api_request(params.merge(@opts))
-    begin
-      @total_count = result[:items_get_response][:total_results]
-      @products = []
-      result[:items_get_response][:items][:item].each do |product|
-        @products << Taobao::Product.new(product)
-      end
-    rescue NoMethodError
-      @total_count = 0
-      @products = []
-    end
+    memoize_api_result
     @products
   end
   
+  def memoize_api_result
+    return if @products
+    responce = items_get_request
+    @total_count = retrieve_total_count(responce)
+    @products = retrieve_products(responce)
+  end
+  
+  def retrieve_total_count(responce)
+    responce[:items_get_response][:total_results].to_i
+  end
+  
+  def retrieve_products(responce)
+    begin
+      products = responce[:items_get_response][:items][:item]
+      get_products_as_objects(products)
+    rescue NoMethodError
+      []
+    end
+  end
+  
+  def get_products_as_objects(products)
+    products.map do |product|
+      Taobao::Product.new(product)
+    end
+  end
+  
+  def items_get_request
+    fields = [:num_iid, :title, :nick, :pic_url, :cid, :price, :type,
+      :delist_time, :post_fee, :score, :volume].join ','
+    params = {method: 'taobao.items.get', fields: fields}
+    Taobao.api_request(params.merge(@opts))
+  end
 end
