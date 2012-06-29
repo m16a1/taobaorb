@@ -29,7 +29,7 @@ describe Taobao::Category do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category = Taobao::Category.new(-20)
       lambda {category.name}
-        .should raise_error Taobao::ApiError, 'Incorrect category ID'
+        .should raise_error Taobao::IncorrectCategoryId, 'Incorrect category ID'
     end
   end
 
