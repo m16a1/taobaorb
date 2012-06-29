@@ -7,35 +7,35 @@ class Taobao::User
   end
   
   def good_purchases_count
-    cached_response[:buyer_credit][:good_num]
+    cached_response[:buyer_credit][:good_num].to_i
   end
   
   def buyer_level
-    cached_response[:buyer_credit][:level]
+    cached_response[:buyer_credit][:level].to_i
   end
   
   def buyer_score
-    cached_response[:buyer_credit][:score]
+    cached_response[:buyer_credit][:score].to_i
   end
   
   def total_purchases_count
-    cached_response[:buyer_credit][:total_num]
+    cached_response[:buyer_credit][:total_num].to_i
   end
   
   def good_sales_count
-    cached_response[:seller_credit][:good_num]
+    cached_response[:seller_credit][:good_num].to_i
   end
   
   def seller_level
-    cached_response[:seller_credit][:level]
+    cached_response[:seller_credit][:level].to_i
   end
   
   def seller_score
-    cached_response[:seller_credit][:score]
+    cached_response[:seller_credit][:score].to_i
   end
   
   def total_sales_count
-    cached_response[:seller_credit][:total_num]
+    cached_response[:seller_credit][:total_num].to_i
   end
   
   def registration_date
@@ -71,7 +71,7 @@ class Taobao::User
   end
   
   def id
-    cached_response[:user_id]
+    cached_response[:user_id].to_i
   end
   
   private
