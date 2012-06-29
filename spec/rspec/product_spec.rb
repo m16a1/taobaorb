@@ -37,7 +37,7 @@ describe Taobao::Product do
       it 'should raise an exception' do
         Taobao.stub(:api_request).with(args).and_return(fixture)
         product = Taobao::Product.new(2997802325)
-        lambda {product.unknown_property}
+        lambda { product.unknown_property }
           .should raise_error NoMethodError
       end
     end

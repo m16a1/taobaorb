@@ -16,6 +16,7 @@ module Taobao
   def self.api_request(options)
     uri = URI(PRODUCTION_URL)
     response = Net::HTTP.post_form uri, self.append_required_options(options)
+    puts options
     parse_to_hash response
   end
   
@@ -29,7 +30,7 @@ module Taobao
   end
   
   def self.append_required_options(options)
-    options.merge({
+    options.merge!({
       app_key:     @public_key,
       format:      :json,
       v:           API_VERSION,
