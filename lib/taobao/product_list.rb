@@ -1,34 +1,23 @@
-class Taobao::ProductList
-  
-  include Enumerable
-  
-  def initialize(opts)
-    @opts = opts
-  end
+class Taobao::ProductList < Taobao::AbstractList
   
   def size
     products.size
   end
   
-  def total_count
-    memoize_api_result
-    @total_count
-  end
-  
   def page(num)
-    @products = nil
+    clear_response
     @opts[:page_no] = num
     self
   end
   
   def per_page(num)
-    @products = nil
+    clear_response
     @opts[:page_size] = num
     self
   end
   
   def order_by(field)
-    @products = nil
+    clear_response
     @opts[:order_by] = field
     self
   end
@@ -44,27 +33,15 @@ class Taobao::ProductList
   def each(&block)
     products.each{|item| block.call(item)}
   end
+
+  def total_count
+    cached_responce[:items_get_response][:total_results].to_i
+  end
   
   private
   def products
-    memoize_api_result
-    @products
-  end
-  
-  def memoize_api_result
-    return if @products
-    response = items_get_request
-    @total_count = retrieve_total_count(response)
-    @products = retrieve_products(response)
-  end
-  
-  def retrieve_total_count(response)
-    response[:items_get_response][:total_results].to_i
-  end
-  
-  def retrieve_products(response)
     begin
-      products = response[:items_get_response][:items][:item]
+      products = cached_responce[:items_get_response][:items][:item]
       get_products_as_objects(products)
     rescue NoMethodError
       []
@@ -77,7 +54,7 @@ class Taobao::ProductList
     end
   end
   
-  def items_get_request
+  def retrieve_response
     fields = [:num_iid, :title, :nick, :pic_url, :cid, :price, :type,
       :delist_time, :post_fee, :score, :volume].join ','
     params = {method: 'taobao.items.get', fields: fields}

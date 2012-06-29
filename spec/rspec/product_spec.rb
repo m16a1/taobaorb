@@ -18,7 +18,7 @@ describe Taobao::Product do
     
     it 'should returns product' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      product = Taobao::Product.new(2997802325)  
+      product = Taobao::Product.new(2997802325)
 
       product.cid.should == 1512
       product.nick.should == '奇迹shouji'
