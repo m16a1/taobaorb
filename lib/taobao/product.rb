@@ -15,6 +15,7 @@ class Taobao::Product
 
   def initialize(product_properties)
     @all_properties_fetched = false
+    @properties = []
 
     if Hash === product_properties
       hash_to_object(product_properties)
@@ -25,7 +26,7 @@ class Taobao::Product
   end
 
   def method_missing(method_name, *args, &block)
-    unless OTHER_PROPERTIES.include? method_name
+    unless @properties.include? method_name
       super
     else
       fetch_full_data unless @all_properties_fetched
@@ -37,6 +38,7 @@ class Taobao::Product
   def hash_to_object(hash)
     hash.each do |k, v|
       self.instance_variable_set "@#{k}", v
+      @properties.push k unless @properties.include? k
     end
   end
 
