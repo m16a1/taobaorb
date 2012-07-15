@@ -29,7 +29,7 @@ module Taobao
   end
   
   def self.append_required_options(options)
-    options.merge({
+    options.merge!({
       app_key:     @public_key,
       format:      :json,
       v:           API_VERSION,

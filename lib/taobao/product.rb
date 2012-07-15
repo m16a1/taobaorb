@@ -9,12 +9,13 @@ class Taobao::Product
     :approve_status, :postage_id, :product_id, :auction_point,
     :property_alias, :item_img, :prop_img, :sku, :video, :outer_id,
     :is_virtual]
-  
+
   attr_reader *BASIC_PROPERTIES
   alias :id :num_iid
-  
+
   def initialize(product_properties)
     @all_properties_fetched = false
+    @properties = []
 
     if Hash === product_properties
       hash_to_object(product_properties)
@@ -23,23 +24,24 @@ class Taobao::Product
       fetch_full_data
     end
   end
-  
+
   def method_missing(method_name, *args, &block)
-    unless OTHER_PROPERTIES.include? method_name
+    unless @properties.include? method_name
       super
     else
       fetch_full_data unless @all_properties_fetched
       self.instance_variable_get "@#{method_name}"
     end
   end
-  
+
   private
   def hash_to_object(hash)
     hash.each do |k, v|
       self.instance_variable_set "@#{k}", v
+      @properties.push k unless @properties.include? k
     end
   end
-  
+
   def fetch_full_data
     fields = (BASIC_PROPERTIES + OTHER_PROPERTIES).join ','
     params = {method: 'taobao.item.get', fields: fields, num_iid: id}
