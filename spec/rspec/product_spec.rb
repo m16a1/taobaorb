@@ -24,8 +24,8 @@ describe Taobao::Product do
       product.nick.should == '奇迹shouji'
       product.num_iid.should == 2997802325
       product.pic_url.should == 'http://img03.taobaocdn.com/bao/uploaded/i3/T1YsfeXbxkXXXpZak._110941.jpg'
-      product.price.should == '4300.00'
-      product.title.should be == '可完美越狱 Apple/苹果 iPhone 4S 正品 装软件 未拆封 未激活'
+      product.price.should == 4300.00
+      product.title.should == '可完美越狱 Apple/苹果 iPhone 4S 正品 装软件 未拆封 未激活'
 
       product.approve_status.should == 'onsale'
       product.auction_point.should == 0
@@ -37,8 +37,9 @@ describe Taobao::Product do
       it 'should raise an exception' do
         Taobao.stub(:api_request).with(args).and_return(fixture)
         product = Taobao::Product.new(2997802325)
-        lambda { product.unknown_property }
-          .should raise_error NoMethodError
+        expect {
+          product.unknown_property
+        }.to raise_error NoMethodError
       end
     end
 

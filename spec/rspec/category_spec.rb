@@ -27,8 +27,9 @@ describe Taobao::Category do
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category = Taobao::Category.new(-20)
-      lambda {category.name}
-        .should raise_error Taobao::IncorrectCategoryId, 'Incorrect category ID'
+      expect {
+        category.name
+      }.to raise_error Taobao::IncorrectCategoryId, 'Incorrect category ID'
     end
   end
 
@@ -43,21 +44,21 @@ describe Taobao::Category do
         parent_cid: 28
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      category.subcategories.size.should be > 0
+      category.subcategories.should have_at_least(1).subcategory
     end
   end
 
   describe 'properties' do
     it 'should return empty array for top level category' do
       category = Taobao::Category.new(0)
-     category.properties.class.should == Taobao::PropertyList
+     category.properties.should be_a_kind_of(Taobao::PropertyList)
     end
   end
 
   describe 'products' do
     it 'should return ProductList object' do
       category = Taobao::Category.new(28)
-      category.products.class.should == Taobao::ProductList
+      category.products.should be_a_kind_of(Taobao::ProductList)
     end
   end
 end

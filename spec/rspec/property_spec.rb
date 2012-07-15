@@ -24,9 +24,8 @@ describe Taobao::Property do
 
     describe 'with incorrect data' do
       it 'should throws an exception' do
-        expect {
-          Taobao::Property.new({})
-        }.to raise_error(Taobao::IncorrectProperty, 'Incorrect property data')
+        expect { Taobao::Property.new({}) }
+          .to raise_error(Taobao::IncorrectProperty, 'Incorrect property data')
       end
     end
   end

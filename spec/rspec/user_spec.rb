@@ -67,8 +67,8 @@ describe Taobao::User do
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
 
-      lambda { Taobao::User.new('nonexistent_user').uid }
-        .should raise_error NoMethodError
+      expect { Taobao::User.new('nonexistent_user').uid }
+        .to raise_error NoMethodError
     end
   end
 end

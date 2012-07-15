@@ -15,21 +15,14 @@ describe Taobao::ProductList do
 
     it 'should return 40 items' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      pl.size.should == 40
+      pl.should have_exactly(40).items
     end
     it 'total count should be greater than zero' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       pl.total_count.should be > 0
     end
     it 'items could be iterated' do
-      pl.each do |item|
-        item.cid.should be > 0
-        item.nick.size.should be > 0
-        item.num_iid.should be > 0
-        item.pic_url.should match /^http:\/\//
-        item.price.size.should be > 0
-        item.title.size.should be > 0
-      end
+      pl.each { |item| item.should be_a_kind_of(Taobao::Product) }
     end
   end
 
@@ -51,15 +44,16 @@ describe Taobao::ProductList do
 
     it 'should return 10 items' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      pl.size.should == 10
+      pl.should have_exactly(10).items
     end
   end
 
   describe 'unknown method' do
     it 'should raise exception' do
       pl = Taobao::ProductList.new(cid: 28)
-      lambda { pl.undefined_method }
-        .should raise_error NoMethodError
+      expect {
+        pl.undefined_method
+      }.to raise_error NoMethodError
     end
   end
 
@@ -74,7 +68,7 @@ describe Taobao::ProductList do
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
       pl.total_count.should == 0
-      pl.size.should == 0
+      pl.should have_exactly(0).items
     end
   end
 

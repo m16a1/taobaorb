@@ -14,7 +14,7 @@ describe Taobao::PropertyList do
         cid: 1512
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      property_list.first.class.should == Taobao::Property
+      property_list.first.should be_a_kind_of(Taobao::Property)
     end
   end
 
@@ -30,7 +30,7 @@ describe Taobao::PropertyList do
         cid: 0
       }
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      property_list.count.should == 0
+      property_list.should have(0).items
     end
   end
 

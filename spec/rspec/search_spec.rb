@@ -15,7 +15,7 @@ describe Taobao do
 
     it 'should return 40 items' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
-      search.size.should == 40
+      search.should have(40).results
     end
     it 'total count should be greater than zero' do
       Taobao.stub(:api_request).with(args).and_return(fixture)

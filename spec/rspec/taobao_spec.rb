@@ -12,7 +12,8 @@ describe Taobao do
   describe 'set the private API key' do
     it 'should be write-only' do
       Taobao.private_key = :test
-      Taobao.method_defined?(:private_key).should == false
+      expect { Taobao.private_key }
+        .to raise_error NoMethodError
     end
   end
   describe 'API request' do
@@ -21,15 +22,15 @@ describe Taobao do
       Net::HTTP.stub(:post_form).and_return(fixture)
       result = Taobao.api_request(method: 'taobao.itemcats.get',
         fields: 'cid,parent_cid,name,is_parent', cids: 0)
-      result.class.should == Hash
+      result.should be_a_kind_of(Hash)
     end
   end
   describe 'failed API request' do
     it 'should throws an exception' do
       fixture = Response.new('error.json'.str_fixture)
       Net::HTTP.stub(:post_form).and_return(fixture)
-      lambda { Taobao.api_request({}) }
-        .should raise_error Taobao::ApiError, 'Invalid arguments:cid'
+      expect { Taobao.api_request({}) }
+        .to raise_error(Taobao::ApiError, 'Invalid arguments:cid')
     end
   end
 end

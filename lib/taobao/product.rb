@@ -22,6 +22,7 @@ class Taobao::Product
     else
       @num_iid = product_properties.to_s
       fetch_full_data
+      convert_data_types
     end
   end
 
@@ -48,5 +49,9 @@ class Taobao::Product
     result = Taobao.api_request(params)
     hash_to_object(result[:item_get_response][:item])
     @all_properties_fetched = true
+  end
+
+  def convert_data_types
+    @price = @price.to_f
   end
 end
