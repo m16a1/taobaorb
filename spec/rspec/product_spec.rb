@@ -15,7 +15,7 @@ describe Taobao::Product do
               'property_alias,item_img,prop_img,sku,video,outer_id,is_virtual',
       num_iid: '2997802325'
     }
-    
+
     it 'should returns product' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       product = Taobao::Product.new(2997802325)
@@ -32,7 +32,7 @@ describe Taobao::Product do
       product.delist_time.should == '2012-06-01 22:41:44'
       product.type.should == 'fixed'
     end
-    
+
     describe 'get unknown product property' do
       it 'should raise an exception' do
         Taobao.stub(:api_request).with(args).and_return(fixture)
@@ -41,6 +41,6 @@ describe Taobao::Product do
           .should raise_error NoMethodError
       end
     end
-    
+
   end
 end

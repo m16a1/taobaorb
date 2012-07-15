@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 describe Taobao::ProductList do
-  
+
   describe 'init with default options and category id' do
     pl = Taobao::ProductList.new(cid: 28)
-    
+
     fixture = 'items.json'.json_fixture
     args = {
       method: 'taobao.items.get',
@@ -32,13 +32,13 @@ describe Taobao::ProductList do
       end
     end
   end
-  
+
   describe 'init and use advanced options' do
     pl = Taobao::ProductList.new(cid: 28)
       .page(15)
       .per_page(10)
       .order_by_price
-    
+
     fixture = 'items_page15.json'.json_fixture
     args = {
       method: 'taobao.items.get',
@@ -48,13 +48,13 @@ describe Taobao::ProductList do
       page_size: 10,
       order_by: 'price'
     }
-    
+
     it 'should return 10 items' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       pl.size.should == 10
     end
   end
-  
+
   describe 'unknown method' do
     it 'should raise exception' do
       pl = Taobao::ProductList.new(cid: 28)
@@ -62,7 +62,7 @@ describe Taobao::ProductList do
         .should raise_error NoMethodError
     end
   end
-  
+
   describe 'category without items' do
     it 'should return 0 items' do
       pl = Taobao::ProductList.new(cid: 283333)
@@ -77,5 +77,5 @@ describe Taobao::ProductList do
       pl.size.should == 0
     end
   end
-  
+
 end

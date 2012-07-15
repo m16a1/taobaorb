@@ -12,7 +12,7 @@ class String
   def str_fixture
     open("spec/fixtures/#{self}").read
   end
-  
+
   def json_fixture
     contents = open("spec/fixtures/#{self}").read
     JSON.parse contents, {symbolize_names: true}

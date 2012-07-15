@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe Taobao::PropertyList do
   describe 'initialize with category ID' do
-    
+
     it 'should returns property' do
       property_list = Taobao::PropertyList.new(cid: 1512)
 
@@ -19,7 +19,7 @@ describe Taobao::PropertyList do
   end
 
  describe 'category without properties' do
-    
+
     it 'should returns 0 properties' do
       property_list = Taobao::PropertyList.new(cid: 0)
 

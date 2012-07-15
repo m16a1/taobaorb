@@ -2,10 +2,10 @@
 require 'spec_helper'
 
 describe Taobao do
-  
+
   describe 'search method returns product list' do
     search = Taobao::search('iPhone')
-    
+
     fixture = 'search.json'.json_fixture
     args = {
       method: 'taobao.items.get',

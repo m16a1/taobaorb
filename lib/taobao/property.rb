@@ -1,4 +1,4 @@
 class Taobao::Property
-	def initialize(opts)
-	end
+  def initialize(opts)
+  end
 end
