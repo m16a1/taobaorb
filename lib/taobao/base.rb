@@ -16,6 +16,7 @@ module Taobao
   def self.api_request(options)
     uri = URI(PRODUCTION_URL)
     response = Net::HTTP.post_form uri, self.append_required_options(options)
+    puts options
     parse_to_hash response
   end
   

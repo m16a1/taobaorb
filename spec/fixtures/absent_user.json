@@ -1,0 +1,1 @@
+{"error_response":{"code":50,"msg":"Remote service error","sub_code":"isv.user-not-exist:invalid-nick","sub_msg":"根据用户昵称:unknown_taobao_user查询不到对应的用户信息"}}
