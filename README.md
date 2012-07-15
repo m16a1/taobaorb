@@ -42,3 +42,33 @@ Searching for products:
 ```ruby
 product_list = Taobao::search('iPhone').page(1).per_page(15).order_by_title
 ```
+
+Retrieving user info by his/her nickname:
+```ruby
+user = Taobao::User.new(username)
+
+# All available methods:
+# buyer_credit
+user.good_purchases_count
+user.buyer_level
+user.buyer_score
+user.total_purchases_count
+
+# seller_credit
+user.good_sales_count
+user.seller_level
+user.seller_score
+user.total_sales_count
+
+user.registration_date
+user.last_visit
+
+user.city
+user.state
+
+user.sex              # :male, :female or :unknown
+user.type
+
+user.uid
+user.id
+```
