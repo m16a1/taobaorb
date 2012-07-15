@@ -1,7 +1,9 @@
 require 'taobao/base'
+require 'taobao/util'
 
 require 'taobao/exceptions/api_error'
 require 'taobao/exceptions/incorrect_category_id'
+require 'taobao/exceptions/incorrect_property'
 
 require 'taobao/category'
 require 'taobao/product'

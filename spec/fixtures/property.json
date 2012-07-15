@@ -1,0 +1,20 @@
+{
+  "multi":false,
+  "must":true,
+  "name":"品牌",
+  "pid":20000,
+  "prop_values": {
+    "prop_value": [
+      {
+        "is_parent":true,
+        "name":"Acer\/宏基",
+        "vid":26691
+      },
+      {
+        "is_parent":true,
+        "name":"CONOR\/酷诺",
+        "vid":141848205
+      }
+    ]
+  }
+}
