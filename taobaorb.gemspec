@@ -4,7 +4,7 @@ require './lib/taobao/version'
 Gem::Specification.new do |s|
   s.name        = 'taobaorb'
   s.version     = Taobao::VERSION
-  s.date        = Date.new.to_s
+  s.date        = Date.today.to_s
   s.summary     = 'Ruby wrapper for the Taobao API'
   s.description = 'Ruby wrapper for the Taobao API'
   s.authors     = ['m16a1']
