@@ -1,6 +1,8 @@
+require './lib/taobao/version'
+
 Gem::Specification.new do |s|
   s.name        = 'taobaorb'
-  s.version     = '0.9.0'
+  s.version     =  Taobao::VERSION
   s.date        = '2012-07-27'
   s.summary     = 'Ruby wrapper for the Taobao API'
   s.description = 'Ruby wrapper for the Taobao API'
