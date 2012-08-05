@@ -14,3 +14,5 @@ require 'taobao/user'
 require 'taobao/abstract_list'
 require 'taobao/product_list'
 require 'taobao/property_list'
+
+require 'rails/taobao-railtie' if defined?(Rails)

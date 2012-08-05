@@ -1,0 +1,7 @@
+development: &default
+  public_key: put your public key here
+  private_key: and private key here
+test:
+  <<: *default
+production:
+  <<: *default
