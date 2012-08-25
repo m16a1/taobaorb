@@ -34,17 +34,21 @@ describe Taobao::Category do
   end
 
   describe 'subcategories' do
-    it 'top level category should contains a few subcategories' do
-      category = Taobao::Category.new(28)
+    category = Taobao::Category.new(28)
 
-      fixture = 'subcategories.json'.json_fixture
-      args = {
-        method: 'taobao.itemcats.get',
-        fields: 'cid,parent_cid,name,is_parent',
-        parent_cid: 28
-      }
+    fixture = 'subcategories.json'.json_fixture
+    args = {
+      method: 'taobao.itemcats.get',
+      fields: 'cid,parent_cid,name,is_parent',
+      parent_cid: 28
+    }
+    it 'top level category should contains a few subcategories' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category.subcategories.should have_at_least(1).subcategory
+    end
+    it 'each subcategory must be an object of Taobao::Category class' do
+      Taobao.stub(:api_request).with(args).and_return(fixture)
+      category.subcategories[0].should be_a_kind_of(Taobao::Category)
     end
   end
 

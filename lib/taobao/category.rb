@@ -1,4 +1,5 @@
 class Taobao::Category
+  include Taobao::Util
   attr_reader :id
 
   # @param category_id [Integer]
@@ -11,8 +12,14 @@ class Taobao::Category
     @name ||= category_request(cids: @id).first[:name]
   end
 
+  # @return [Array<Taobao::Category>]
   def subcategories
-    @subcategories ||= category_request(parent_cid: @id)
+    return @subcategories if @subcategories
+    @subcategories = category_request(parent_cid: @id).map do |cat|
+      category = self.class.new cat[:id]
+      category.to_object(cat)
+      category
+    end
   end
 
   # @return [Taobao::PropertyList]
