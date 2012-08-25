@@ -13,6 +13,10 @@ module Taobao
     attr_writer   :private_key
   end
 
+  # Performs API calls to Taobao
+  #
+  # @param options [Hash]
+  # @return [Hash] API request result
   def self.api_request(options)
     uri = URI(PRODUCTION_URL)
     response = Net::HTTP.post_form uri, self.append_required_options(options)

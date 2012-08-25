@@ -1,10 +1,12 @@
 class Taobao::Category
   attr_reader :id
 
+  # @param category_id [Integer]
   def initialize(category_id)
     @id = category_id.to_i
   end
 
+  # @return [String]
   def name
     @name ||= category_request(cids: @id).first[:name]
   end
@@ -13,10 +15,12 @@ class Taobao::Category
     @subcategories ||= category_request(parent_cid: @id)
   end
 
+  # @return [Taobao::PropertyList]
   def properties
     @properties ||= Taobao::PropertyList.new(cid: @id)
   end
 
+  # @return [Taobao::ProductList]
   def products
     @products ||= Taobao::ProductList.new(cid: @id)
   end

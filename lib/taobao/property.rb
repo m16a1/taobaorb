@@ -2,6 +2,7 @@ class Taobao::Property
   attr_reader :multi, :must, :name, :pid, :values
   include Taobao::Util
 
+  # @param response [Hash]
   def initialize(response)
     @response = response
     to_object response

@@ -1,3 +1,3 @@
 module Taobao
-  VERSION = '0.9.1-rc'
+  VERSION = '0.9.1'
 end
