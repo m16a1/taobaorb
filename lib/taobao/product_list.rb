@@ -40,12 +40,10 @@ class Taobao::ProductList < Taobao::AbstractList
 
   private
   def products
-    begin
-      products = cached_responce[:items_get_response][:items][:item]
-      get_products_as_objects(products)
-    rescue NoMethodError
-      []
-    end
+    products = cached_responce[:items_get_response][:items][:item]
+    get_products_as_objects(products)
+  rescue NoMethodError
+    []
   end
 
   def get_products_as_objects(products)

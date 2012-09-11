@@ -6,12 +6,10 @@ class Taobao::PropertyList < Taobao::AbstractList
 
   private
   def properties
-    begin
-      props = cached_responce[:itemprops_get_response][:item_props][:item_prop]
-      props.map { |prop| Taobao::Property.new(prop) }
-    rescue NoMethodError
-      []
-    end
+    props = cached_responce[:itemprops_get_response][:item_props][:item_prop]
+    props.map { |prop| Taobao::Property.new(prop) }
+  rescue NoMethodError
+    []
   end
 
   def retrieve_response
