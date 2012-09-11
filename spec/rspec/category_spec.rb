@@ -50,6 +50,7 @@ describe Taobao::Category do
     it 'each subcategory should be an object of Taobao::Category class' do
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category.subcategories[0].should be_a_kind_of(Taobao::Category)
+      category.subcategories[0].id.should be > 0
     end
   end
 

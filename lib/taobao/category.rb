@@ -16,7 +16,7 @@ class Taobao::Category
   def subcategories
     return @subcategories if @subcategories
     @subcategories = category_request(parent_cid: @id).map do |cat|
-      category = self.class.new cat[:id]
+      category = self.class.new cat[:cid]
       category.to_object(cat)
       category
     end
