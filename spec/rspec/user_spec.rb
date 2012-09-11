@@ -16,6 +16,7 @@ describe Taobao::User do
 
       user = Taobao::User.new('喜客多2008')
 
+      user.nick.should == '喜客多2008'
       user.good_purchases_count.should == 1292
       user.buyer_level.should == 8
       user.buyer_score.should == 1292

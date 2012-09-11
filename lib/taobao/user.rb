@@ -1,7 +1,7 @@
 require 'date'
 
 class Taobao::User
-
+  attr_reader :nick
   # Retrive user info by nickname
   # @param nickname [String]
   def initialize(nickname)

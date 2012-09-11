@@ -26,6 +26,10 @@ class Taobao::Product
     end
   end
 
+  def user
+    Taobao::User.new @nick
+  end
+
   def method_missing(method_name, *args, &block)
     if @properties.include? method_name
       fetch_full_data unless @all_properties_fetched
