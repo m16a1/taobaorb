@@ -8,7 +8,7 @@ class Taobao::Product
     :has_invoice, :has_warranty, :has_showcase, :modified, :increment,
     :approve_status, :postage_id, :product_id, :auction_point,
     :property_alias, :item_img, :prop_img, :sku, :video, :outer_id,
-    :is_virtual]
+    :is_virtual, :sell_promise, :second_kill, :auto_fill, :props_name]
 
   attr_reader *BASIC_PROPERTIES
   alias :id :num_iid
