@@ -6,7 +6,7 @@ describe Taobao do
   describe 'search method returns product list' do
     search = Taobao::search('iPhone')
 
-    fixture = 'search.json'.json_fixture
+    fixture = 'search'.json_fixture
     args = {
       method: 'taobao.items.get',
       fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',

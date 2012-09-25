@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-Response = Struct.new('Responce', :body)
-
 describe Taobao do
   describe 'set the public API key' do
     it 'should have rw access' do
@@ -18,8 +16,7 @@ describe Taobao do
   end
   describe 'API request' do
     it 'should always return a Hash object' do
-      fixture = Response.new('category.json'.str_fixture)
-      Net::HTTP.stub(:post_form).and_return(fixture)
+      Net::HTTP.stub(:post_form).and_return 'category'.to_response
       result = Taobao.api_request(method: 'taobao.itemcats.get',
         fields: 'cid,parent_cid,name,is_parent', cids: 0)
       result.should be_a_kind_of(Hash)
@@ -27,8 +24,7 @@ describe Taobao do
   end
   describe 'failed API request' do
     it 'should throws an exception' do
-      fixture = Response.new('error.json'.str_fixture)
-      Net::HTTP.stub(:post_form).and_return(fixture)
+      Net::HTTP.stub(:post_form).and_return 'error'.to_response
       expect { Taobao.api_request({}) }
         .to raise_error(Taobao::ApiError, 'Invalid arguments:cid')
     end

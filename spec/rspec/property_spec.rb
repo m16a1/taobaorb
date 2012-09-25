@@ -5,7 +5,7 @@ describe Taobao::Property do
   describe 'initialize' do
     describe 'with correct data' do
       it 'should create Property object' do
-        property_response = 'property.json'.json_fixture
+        property_response = 'property'.json_fixture
         property = Taobao::Property.new(property_response)
 
         property.multi.should be_false

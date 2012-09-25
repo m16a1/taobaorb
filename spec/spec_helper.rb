@@ -8,13 +8,19 @@ end
 
 require 'taobaorb'
 
+Response = Struct.new('Responce', :body)
+
 class String
-  def str_fixture
-    open("spec/fixtures/#{self}").read
+  def to_response
+    Response.new get_fixture_as_text
   end
 
   def json_fixture
-    contents = open("spec/fixtures/#{self}").read
-    JSON.parse contents, {symbolize_names: true}
+    JSON.parse get_fixture_as_text, {symbolize_names: true}
+  end
+
+  private
+  def get_fixture_as_text
+    open("spec/fixtures/#{self}.json").read
   end
 end

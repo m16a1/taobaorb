@@ -40,7 +40,7 @@ class Taobao::Category
     begin
       result[:itemcats_get_response][:item_cats][:item_cat]
     rescue NoMethodError
-      raise Taobao::IncorrectCategoryId, 'Incorrect category ID'
+      []
     end
   end
 

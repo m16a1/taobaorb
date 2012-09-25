@@ -14,7 +14,7 @@ describe Taobao::Product do
               'property_alias,item_img,prop_img,sku,video,outer_id,is_virtual',
       num_iid: '2997802325'
     }
-    fixture = 'product.json'.json_fixture
+    fixture = 'product'.json_fixture
     Taobao.stub(:api_request).with(args).and_return(fixture)
     @product = Taobao::Product.new(2997802325)
   end

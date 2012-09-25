@@ -4,7 +4,7 @@ require 'spec_helper'
 describe Taobao::User do
   describe 'getting user by valid nickname' do
     it 'should returns valid user info' do
-      fixture = 'user.json'.json_fixture
+      fixture = 'user'.json_fixture
       args = {
         method: 'taobao.user.get',
         fields: 'user_id,uid,nick,sex,buyer_credit,seller_credit,location,' +
@@ -42,7 +42,7 @@ describe Taobao::User do
   end
   describe 'getting user who does not specify his/her sex' do
     it 'should returns :unknown value' do
-      fixture = 'user_unknown_sex.json'.json_fixture
+      fixture = 'user_unknown_sex'.json_fixture
       args = {
         method: 'taobao.user.get',
         fields: 'user_id,uid,nick,sex,buyer_credit,seller_credit,location,' +
@@ -58,7 +58,7 @@ describe Taobao::User do
 
   describe 'getting non-existent user' do
     it 'should throws an exception' do
-      fixture = 'absent_user.json'.json_fixture
+      fixture = 'absent_user'.json_fixture
       args = {
         method: 'taobao.user.get',
         fields: 'user_id,uid,nick,sex,buyer_credit,seller_credit,location,' +
