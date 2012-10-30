@@ -11,7 +11,8 @@ describe Taobao::Product do
               'location,express_fee,ems_fee,has_discount,freight_payer,' +
               'has_invoice,has_warranty,has_showcase,modified,increment,' +
               'approve_status,postage_id,product_id,auction_point,' +
-              'property_alias,item_img,prop_img,sku,video,outer_id,is_virtual',
+              'property_alias,item_img,prop_img,sku,video,outer_id,is_virtual,' +
+              'sell_promise,second_kill,auto_fill,props_name',
       num_iid: '2997802325'
     }
     fixture = 'product'.json_fixture
