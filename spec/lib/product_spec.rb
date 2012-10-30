@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Taobao::Product do
-  before(:each) do
+  let(:product) do
     args = {
       method: 'taobao.item.get',
       fields: 'cid,num_iid,title,nick,price,pic_url,type,score,delist_time,' +
@@ -17,36 +17,33 @@ describe Taobao::Product do
     }
     fixture = 'product'.json_fixture
     Taobao.stub(:api_request).with(args).and_return(fixture)
-    @product = Taobao::Product.new(2997802325)
+    Taobao::Product.new(2997802325)
   end
+  subject { product }
 
   describe 'initialize with id' do
     it 'should returns product' do
-      @product.cid.should == 1512
-      @product.nick.should == '奇迹shouji'
-      @product.num_iid.should == 2997802325
-      @product.pic_url.should == 'http://img03.taobaocdn.com/bao/uploaded/i3/T1YsfeXbxkXXXpZak._110941.jpg'
-      @product.price.should == 4300.00
-      @product.title.should == '可完美越狱 Apple/苹果 iPhone 4S 正品 装软件 未拆封 未激活'
+      subject.cid.should == 1512
+      subject.nick.should == '奇迹shouji'
+      subject.num_iid.should == 2997802325
+      subject.pic_url.should == 'http://img03.taobaocdn.com/bao/uploaded/i3/T1YsfeXbxkXXXpZak._110941.jpg'
+      subject.price.should == 4300.00
+      subject.title.should == '可完美越狱 Apple/苹果 iPhone 4S 正品 装软件 未拆封 未激活'
 
-      @product.approve_status.should == 'onsale'
-      @product.auction_point.should == 0
-      @product.delist_time.should == '2012-06-01 22:41:44'
-      @product.type.should == 'fixed'
+      subject.approve_status.should == 'onsale'
+      subject.auction_point.should == 0
+      subject.delist_time.should == '2012-06-01 22:41:44'
+      subject.type.should == 'fixed'
     end
 
     describe 'get unknown product property' do
-      it 'should raise an exception' do
+      it do
         expect {
-          @product.unknown_property
+          subject.unknown_property
         }.to raise_error NoMethodError
       end
     end
   end
 
-  describe '#user' do
-    it 'should returns Taobao::User object' do
-      @product.user.should be_a_kind_of Taobao::User
-    end
-  end
+  its(:user) { should be_a_kind_of Taobao::User }
 end
