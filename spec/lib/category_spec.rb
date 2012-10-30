@@ -9,14 +9,14 @@ describe Taobao::Category do
     end
   end
   describe '#name' do
+    args = {
+      method: 'taobao.itemcats.get',
+      fields: 'cid,parent_cid,name,is_parent',
+      cids: 28
+    }
     it 'should returns the name of the category' do
       category = Taobao::Category.new(28)
       fixture = 'category'.json_fixture
-      args = {
-        method: 'taobao.itemcats.get',
-        fields: 'cid,parent_cid,name,is_parent',
-        cids: 28
-      }
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category.name.should == 'ZIPPO/瑞士军刀/眼镜'
     end
@@ -48,17 +48,8 @@ describe Taobao::Category do
     end
   end
 
-  describe '#properties' do
-    it 'should return a PropertyList object' do
-      category = Taobao::Category.new(0)
-      category.properties.should be_a_kind_of(Taobao::PropertyList)
-    end
-  end
-
-  describe '#products' do
-    it 'should return a ProductList object' do
-      category = Taobao::Category.new(28)
-      category.products.should be_a_kind_of(Taobao::ProductList)
-    end
-  end
+  let(:category) { Taobao::Category.new(0) }
+  subject { category }
+  its(:properties) { should be_a_kind_of Taobao::PropertyList }
+  its(:products) { should be_a_kind_of Taobao::ProductList }
 end
