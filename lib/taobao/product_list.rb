@@ -31,7 +31,7 @@ class Taobao::ProductList < Taobao::AbstractList
   end
 
   def each(&block)
-    products.each{|item| block.call(item)}
+    products.each{ |item| block.call item }
   end
 
   def total_count
@@ -41,21 +41,19 @@ class Taobao::ProductList < Taobao::AbstractList
   private
   def products
     products = cached_responce[:items_get_response][:items][:item]
-    get_products_as_objects(products)
+    get_products_as_objects products
   rescue NoMethodError
     []
   end
 
   def get_products_as_objects(products)
-    products.map do |product|
-      Taobao::Product.new(product)
-    end
+    products.map { |product| Taobao::Product.new product }
   end
 
   def retrieve_response
     fields = [:num_iid, :title, :nick, :pic_url, :cid, :price, :type,
       :delist_time, :post_fee, :score, :volume].join ','
     params = {method: 'taobao.items.get', fields: fields}
-    Taobao.api_request(params.merge(@opts))
+    Taobao.api_request params.merge(@opts)
   end
 end
