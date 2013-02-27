@@ -1,9 +1,5 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-
-# Project property files
-.actionScriptProperties
-.flexProperties
-.settings/
-.project
+.yardoc
+doc
+coverage
+Gemfile.lock
+api_keys.rb

@@ -70,11 +70,8 @@ class Taobao::User
 
   # @return [Symbol]
   def sex
-    if cached_response.has_key? :sex
-      return :male if cached_response[:sex] == 'm'
-      return :female if cached_response[:sex] == 'f'
-    end
-    :unknown
+    return :unknown unless cached_response.has_key? :sex
+    cached_response[:sex] == 'm' ? :male : :female
   end
 
   # @return [String]
@@ -95,7 +92,6 @@ class Taobao::User
   private
   def cached_response
     @response ||= retrieve_response[:user_get_response][:user]
-    @response
   end
 
   def retrieve_response
