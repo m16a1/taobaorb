@@ -32,7 +32,7 @@ describe Taobao::Product do
 
       subject.approve_status.should == 'onsale'
       subject.auction_point.should == 0
-      subject.delist_time.should == '2012-06-01 22:41:44'
+      subject.delist_time.should == DateTime.new(2012,06,1, 22,41,44)
       subject.type.should == 'fixed'
     end
 

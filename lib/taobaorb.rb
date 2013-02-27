@@ -1,3 +1,4 @@
+require 'date'
 require 'taobao/base'
 require 'taobao/util'
 

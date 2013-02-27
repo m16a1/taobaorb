@@ -1,4 +1,7 @@
 class Taobao::Product
+
+  include Taobao::Util
+
   BASIC_PROPERTIES = [:cid, :num_iid, :title, :nick, :price, :pic_url, :type,
      :score, :delist_time, :post_fee, :volume]
 
@@ -14,15 +17,13 @@ class Taobao::Product
   alias :id :num_iid
 
   def initialize(product_properties)
-    @all_properties_fetched = false
-    @properties = []
-
     if Hash === product_properties
-      hash_to_object(product_properties)
+      to_object product_properties
+      @all_properties_fetched = false
+      convert_types
     else
       @num_iid = product_properties.to_s
       fetch_full_data
-      convert_data_types
     end
   end
 
@@ -31,7 +32,7 @@ class Taobao::Product
   end
 
   def method_missing(method_name, *args, &block)
-    if @properties.include? method_name
+    if instance_variable_defined? "@#{method_name}"
       fetch_full_data unless @all_properties_fetched
       self.instance_variable_get "@#{method_name}"
     else
@@ -40,22 +41,18 @@ class Taobao::Product
   end
 
   private
-  def hash_to_object(hash)
-    hash.each do |k, v|
-      self.instance_variable_set "@#{k}", v
-      @properties.push k unless @properties.include? k
-    end
-  end
 
   def fetch_full_data
     fields = (BASIC_PROPERTIES + OTHER_PROPERTIES).join ','
     params = {method: 'taobao.item.get', fields: fields, num_iid: id}
     result = Taobao.api_request(params)
-    hash_to_object(result[:item_get_response][:item])
+    to_object result[:item_get_response][:item]
     @all_properties_fetched = true
+    convert_types
   end
 
-  def convert_data_types
+  def convert_types
     @price = @price.to_f
+    @delist_time = DateTime.parse @delist_time
   end
 end
