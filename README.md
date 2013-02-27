@@ -1,4 +1,4 @@
-#taobaorb
+#taobaorb [![Build Status](https://travis-ci.org/m16a1/taobaorb.png)](https://travis-ci.org/m16a1/taobaorb) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/m16a1/taobaorb)
 
 Ruby wrapper for the Taobao API
 
