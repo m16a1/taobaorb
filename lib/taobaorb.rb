@@ -1,4 +1,6 @@
 require 'date'
+require 'nokogiri'
+require 'taobao/xml_parser'
 require 'taobao/base'
 require 'taobao/util'
 
