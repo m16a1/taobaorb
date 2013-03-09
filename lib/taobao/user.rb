@@ -84,11 +84,6 @@ class Taobao::User
     cached_response[:uid]
   end
 
-  # @return [Integer]
-  def id
-    cached_response[:user_id].to_i
-  end
-
   private
   def cached_response
     @response ||= retrieve_response[:user_get_response][:user]

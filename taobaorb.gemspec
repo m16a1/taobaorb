@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.required_ruby_version = '>= 1.9'
   s.files                 = Dir['lib/**/*']
   s.homepage              = 'https://github.com/m16a1/taobaorb'
-  s.add_dependency('nokogiri')
-  s.add_development_dependency(['rspec', 'simplecov'])
+  s.add_dependency 'nokogiri'
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'simplecov'
 end
