@@ -5,7 +5,7 @@ describe Taobao::ProductList do
   describe 'init with default options and category id' do
     let(:pl) { Taobao::ProductList.new(cid: 28) }
     before do
-      fixture = 'items'.json_fixture
+      fixture = 'items'.xml_fixture
       args = {
         method: 'taobao.items.get',
         fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',
@@ -33,7 +33,7 @@ describe Taobao::ProductList do
         .order_by_price
     end
     before do
-      fixture = 'items_page15'.json_fixture
+      fixture = 'items_page15'.xml_fixture
       args = {
         method: 'taobao.items.get',
         fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',
@@ -62,7 +62,7 @@ describe Taobao::ProductList do
   describe 'category without items' do
     let(:pl) { Taobao::ProductList.new(cid: 283333) }
     before do
-      fixture = 'no_items'.json_fixture
+      fixture = 'no_items'.xml_fixture
       args = {
         method: 'taobao.items.get',
         fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',

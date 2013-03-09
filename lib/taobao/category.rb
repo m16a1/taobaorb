@@ -9,7 +9,7 @@ class Taobao::Category
 
   # @return [String]
   def name
-    @name ||= category_request(cids: @id).first[:name]
+    @name ||= category_request(cids: @id)[:name]
   end
 
   # @return [Array<Taobao::Category>]
@@ -33,7 +33,7 @@ class Taobao::Category
   end
 
   private
-  def category_request(optional_params)
+  def category_request(optional_params = {})
     fields = [:cid, :parent_cid, :name, :is_parent].join ','
     params = {method: 'taobao.itemcats.get', fields: fields}
     result = Taobao.api_request(params.merge(optional_params))

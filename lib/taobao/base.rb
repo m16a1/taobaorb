@@ -1,7 +1,7 @@
 require 'digest/md5'
 require 'uri'
 require 'net/http'
-require 'json'
+require 'taobao/xml_parser'
 
 module Taobao
 
@@ -35,7 +35,7 @@ module Taobao
   def self.append_required_options(options)
     options.merge!({
       app_key:     @public_key,
-      format:      :json,
+      format:      :xml,
       v:           API_VERSION,
       timestamp:   Time.now.strftime('%Y-%m-%d %H:%M:%S'),
       sign_method: :md5
@@ -45,7 +45,7 @@ module Taobao
   end
 
   def self.parse_to_hash(response)
-    result = JSON.parse response.body, {symbolize_names: true}
+    result = Nokogiri::XML(response.body).to_symbolized_hash
     raise Taobao::ApiError.new(result) if result.key? :error_response
     result
   end

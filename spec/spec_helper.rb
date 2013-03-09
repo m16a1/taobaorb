@@ -15,12 +15,12 @@ class String
     Response.new get_fixture_as_text
   end
 
-  def json_fixture
-    JSON.parse get_fixture_as_text, {symbolize_names: true}
+  def xml_fixture
+    Nokogiri::XML(get_fixture_as_text).to_symbolized_hash
   end
 
   private
   def get_fixture_as_text
-    open("spec/fixtures/#{self}.json").read
+    open("spec/fixtures/#{self}.xml").read
   end
 end

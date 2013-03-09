@@ -16,7 +16,7 @@ describe Taobao::Category do
     }
     it 'should returns the name of the category' do
       category = Taobao::Category.new(28)
-      fixture = 'category'.json_fixture
+      fixture = 'category'.xml_fixture
       Taobao.stub(:api_request).with(args).and_return(fixture)
       category.name.should == 'ZIPPO/瑞士军刀/眼镜'
     end
@@ -30,21 +30,20 @@ describe Taobao::Category do
   end
 
   describe '#subcategories' do
-    before :each do
-      @category = Taobao::Category.new(28)
-    end
+    let(:category) { Taobao::Category.new(28) }
+    let(:category_wo_subcats) { Taobao::Category.new(50005205) }
     it 'should returns subcategories if they are exists' do
-      Taobao.stub(:api_request).and_return 'subcategories'.json_fixture
-      @category.subcategories.should have_at_least(1).subcategory
-    end
-    it 'should returns empty array if subcategories do not exist' do
-      Taobao.stub(:api_request).and_return 'category_without_subcategories'.json_fixture
-      @category.subcategories.should be_empty
+      Taobao.stub(:api_request).and_return 'subcategories'.xml_fixture
+      category.subcategories.should have_at_least(1).subcategory
     end
     it 'each subcategory should be an object of Taobao::Category class' do
-      Taobao.stub(:api_request).and_return 'subcategories'.json_fixture
-      @category.subcategories[0].should be_a_kind_of(Taobao::Category)
-      @category.subcategories[0].id.should be > 0
+      Taobao.stub(:api_request).and_return 'subcategories'.xml_fixture
+      category.subcategories[0].should be_a_kind_of(Taobao::Category)
+      category.subcategories[0].id.should be > 0
+    end
+    it 'should returns empty array if subcategories do not exist' do
+      Taobao.stub(:api_request).and_return 'category_without_subcategories'.xml_fixture
+      category_wo_subcats.subcategories.should be_empty
     end
   end
 

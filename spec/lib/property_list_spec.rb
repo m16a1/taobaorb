@@ -7,7 +7,7 @@ describe Taobao::PropertyList do
     it 'should returns property' do
       property_list = Taobao::PropertyList.new(cid: 1512)
 
-      fixture = 'category_properties'.json_fixture
+      fixture = 'category_properties'.xml_fixture
       args = {
         method: 'taobao.itemprops.get',
         fields: 'pid,name,prop_values,must,multi,is_color_prop,is_key_prop,is_enum_prop,is_input_prop,is_sale_prop,is_item_prop',
@@ -23,7 +23,7 @@ describe Taobao::PropertyList do
     it 'should returns 0 properties' do
       property_list = Taobao::PropertyList.new(cid: 0)
 
-      fixture = 'top_category_properties'.json_fixture
+      fixture = 'top_category_properties'.xml_fixture
       args = {
         method: 'taobao.itemprops.get',
         fields: 'pid,name,prop_values,must,multi,is_color_prop,is_key_prop,is_enum_prop,is_input_prop,is_sale_prop,is_item_prop',

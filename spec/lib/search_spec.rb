@@ -4,21 +4,20 @@ require 'spec_helper'
 describe Taobao do
 
   describe 'search method returns product list' do
-    search = Taobao::search('iPhone')
-
-    fixture = 'search'.json_fixture
-    args = {
-      method: 'taobao.items.get',
-      fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',
-      q: 'iPhone'
-    }
+    let(:search) { Taobao::search('iPhone') }
+    before do
+      args = {
+        method: 'taobao.items.get',
+        fields: 'num_iid,title,nick,pic_url,cid,price,type,delist_time,post_fee,score,volume',
+        q: 'iPhone'
+      }
+      Taobao.stub(:api_request).with(args).and_return 'search'.xml_fixture
+    end
 
     it 'should return 40 items' do
-      Taobao.stub(:api_request).with(args).and_return(fixture)
       search.should have(40).results
     end
     it 'total count should be greater than zero' do
-      Taobao.stub(:api_request).with(args).and_return(fixture)
       search.total_count.should be > 0
     end
   end

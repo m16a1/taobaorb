@@ -68,7 +68,9 @@ class Taobao::User
 
   # @return [Symbol]
   def sex
-    return :unknown unless cached_response.has_key? :sex
+    if !cached_response.has_key?(:sex) || cached_response[:sex].empty?
+      return :unknown
+    end
     cached_response[:sex] == 'm' ? :male : :female
   end
 

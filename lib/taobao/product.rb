@@ -53,6 +53,9 @@ class Taobao::Product
 
   def convert_types
     @price = @price.to_f
+    @cid = @cid.to_i
+    @num_iid = @num_iid.to_i
+    @auction_point = @auction_point.to_i
     @delist_time = DateTime.parse @delist_time
   end
 end

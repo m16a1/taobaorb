@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8" ?><error_response><code>50</code><msg>Remote service error</msg><sub_code>isv.user-not-exist:invalid-nick</sub_code><sub_msg>根据用户昵称:nonexistent_user查询不到对应的用户信息</sub_msg></error_response><!--top174178.cm3-->
